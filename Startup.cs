@@ -26,6 +26,12 @@ namespace VendasLanches03
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<APPDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddTransient<ICategoriaRepository, CategoriaRepository>();
+            services.AddTransient<IPedidoRepository, PedidoRepository>();
+            services.AddTransient<ILancheRepository, LancheRepository>();
+
             services.AddControllersWithViews();
         }
 
