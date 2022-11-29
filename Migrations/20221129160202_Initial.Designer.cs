@@ -12,7 +12,7 @@ using VendasLanches03.Context;
 namespace VendasLanches03.Migrations
 {
     [DbContext(typeof(APPDbContext))]
-    [Migration("20221129154217_Initial")]
+    [Migration("20221129160202_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
