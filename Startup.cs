@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using VendasLanches03.Context;
 using VendasLanches03.Repositories;
 using VendasLanches03.Repositories.Interfaces;
+using VendasLanches03.Services;
 
 namespace VendasLanches03
 {
@@ -28,9 +29,13 @@ namespace VendasLanches03
             services.AddDbContext<APPDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddTransient<ICategoriaRepository, CategoriaRepository>();
-            services.AddTransient<IPedidoRepository, PedidoRepository>();
-            services.AddTransient<ILancheRepository, LancheRepository>();
+            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+            services.AddScoped<IPedidoRepository, PedidoRepository>();
+            services.AddScoped<ILancheRepository, LancheRepository>();
+            services.AddScoped<ICategoriaService, CategoryService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
 
             services.AddControllersWithViews();
         }
@@ -40,6 +45,8 @@ namespace VendasLanches03
         {
             if (env.IsDevelopment())
             {
+                app.UseSwagger();
+                app.UseSwaggerUI();
                 app.UseDeveloperExceptionPage();
             }
             else
